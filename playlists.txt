@@ -1,0 +1,5 @@
+Patricia;3;rock.txt;kpop.txt;anos80.txt
+Camila;2;metal.txt;halloween.txt
+Livia;2;frenchmusic.txt;indie.txt
+Magda;3;bossanova.txt;classica.txt;mpb.txt
+Stefanio;3;pop.txt;alternative.txt;popbrasil.txt

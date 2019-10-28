@@ -1,0 +1,7 @@
+Patricia;Livia;Magda;Camila;Stefanio
+Camila;Livia
+Livia;Stefanio
+Stefanio;Camila
+Magda;Stefanio
+Patricia;Stefanio
+Patricia;Livia
