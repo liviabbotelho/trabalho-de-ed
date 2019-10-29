@@ -155,7 +155,7 @@ void recebePessoasEAmigos(tListaP* lista) {
     while (consomeCaracter != '\n') {
         fscanf(arqEntradaAmizades, "%[^\n;]s", nome1);
         fscanf(arqEntradaAmizades, "%c", &consomeCaracter);
-        inserePessoa(lista, inicializaItem(lista, nome1));
+        inserePessoa(lista, inicializaItem(nome1));
     }
     // À seguir, ler as amizades e as define
     while (1) {
@@ -195,7 +195,7 @@ void inserePessoa(tListaP* listaP, Item* p) {
 
 // Inicializa cada item
 
-Item* inicializaItem(tListaP* lista, char* nome) {
+Item* inicializaItem(char* nome) {
     Item* p = (Item*) malloc(sizeof (Item));
     p->nome = strdup(nome);
     return p;
@@ -203,16 +203,19 @@ Item* inicializaItem(tListaP* lista, char* nome) {
 
 // Insere uma pessoa
 
-void insereAmigo(tListaP* amigos, Item* p) {
+void insereAmigo(tListaP* amigos, tPessoa* p) {
     tPessoa* nova = (tPessoa*) malloc(sizeof (tPessoa));
-    nova->usuario = p;
+    nova->usuario = p->usuario;
 
-    if (amigos->fim == NULL) // Verifica se a lista esta vazia
+    if (amigos->fim == NULL){ // Verifica se a lista esta vazia
         amigos->fim = amigos->ini = nova;
-
+//        amigos->fim->prox = NULL;
+//        amigos->ini->prox = NULL;
+    }
     else {
         amigos->fim->prox = nova;
         amigos->fim = nova;
+//        amigos->fim->prox=NULL;
     }
 }
 
@@ -224,18 +227,18 @@ void defineAmigos(tPessoa* p1, tPessoa* p2) {
         return;
 
     // Insere a pessoa p2 na lista de amizades de p1:
-    if (p1->usuario->amigos->fim == NULL) {
-        insereAmigo(p1->usuario->amigos, p2->usuario);
-    } else {
-        insereAmigo(p1->usuario->amigos, p2->usuario);
-    }
+    if (p1->usuario->amigos->fim == NULL) 
+        insereAmigo(p1->usuario->amigos, p2);
+     else 
+        insereAmigo(p1->usuario->amigos, p2);
+    
 
     // Insere a pessoa p1 na lista de amizades de p2:
     if (p2->usuario->amigos->fim == NULL)
-        insereAmigo(p2->usuario->amigos, p1->usuario);
-    else {
-        insereAmigo(p2->usuario->amigos, p1->usuario);
-    }
+        insereAmigo(p2->usuario->amigos, p1);
+    else 
+        insereAmigo(p2->usuario->amigos, p1);
+    
 }
 
 // Busca uma pessoa na lista
@@ -429,7 +432,9 @@ void destroiListaDePessoas(tListaP* lista){
     for (; p != NULL; pessoa = p) {
         p=p->prox;
         destroiListaDePlaylists(pessoa->usuario->playlists);
-        destroiListaDeAmigos(pessoa->usuario->amigos);
+        //destroiListaDeAmigos(pessoa->usuario->amigos);
+        free(pessoa->usuario->amigos);
+        free(pessoa->usuario->nome);
         free(pessoa->usuario);
         free(pessoa); // Destroi a célula pessoa
     }

@@ -83,8 +83,8 @@ char* retornaArtista(tMusica* m) {
 }
 
 tMusica* desencadeiaMusica(tMusica* m) {
-    
     tMusica* x = inicializaMusica(m->artista, m->nome);
+    
     x->prox=NULL;
     return x;
 }
@@ -102,16 +102,27 @@ int buscaMusicaPlaylist(tPlaylist* playlist, tMusica* m) {
     return 0;
 }
 
+void destroiMusicas(tMusica* m) {
+    if (m == NULL)
+        return;
+
+    destroiMusicas(m->prox);
+    free(m->artista);
+    free(m->nome);
+    free(m);
+}
+
 void destroiPlaylist(tPlaylist* playlist) {
     tMusica* musica = playlist->ini;
     tMusica* x=musica;
 
-    for (; x != NULL; musica = x) {
-        x = x->prox;
-        free(musica->artista);
-        free(musica->nome);
-        free(musica);
-    }
+//    for (; x != NULL; musica = x) {
+//        x = x->prox;
+//        free(musica->artista);
+//        free(musica->nome);
+//        free(musica);
+//    }
+    destroiMusicas(musica);
     free(playlist->nome);
     free(playlist);
 }

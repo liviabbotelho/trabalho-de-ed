@@ -24,3 +24,4 @@ void destroiPlaylist(tPlaylist* playlist);
 
 tMusica* desencadeiaMusica(tMusica* m);
 
+void destroiMusicas(tMusica* m);

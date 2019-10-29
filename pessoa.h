@@ -25,11 +25,11 @@ tPessoa* buscaPessoa(tListaP* listaP, char* nome);
 
 void imprimeLista(tListaP* lista);
 
-Item* inicializaItem(tListaP* lista, char* nome);
+Item* inicializaItem(char* nome);
 
 tListaPlaylist* criaListaPlaylists();
 
-void insereAmigo(tListaP* listaP, Item* p);
+void insereAmigo(tListaP* listaP, tPessoa* p);
 
 tListaPlaylist* inserePlaylist(tListaPlaylist* lista, tPlay* playlist);
 
